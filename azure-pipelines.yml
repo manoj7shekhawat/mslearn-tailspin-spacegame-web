@@ -63,7 +63,7 @@ steps:
 - script: dotnet tool install --tool-path tools dotnet-reportgenerator-globaltool --version 4.6.1
   displayName: 'Install ReportGenerator tool'
   continueOnError: true
-  
+
 - script: echo "##vso[task.prependpath]$HOME/.dotnet/tools"
   displayName: 'Update PATH'
 
@@ -72,7 +72,7 @@ steps:
   inputs:
     command: custom
     custom: tool
-    arguments: 'run reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines'
+    arguments: 'run ##vso[task.prependpath]$HOME/.dotnet/tools/reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage report'
